@@ -21,6 +21,8 @@ def main() -> None:
         "cal_date,is_open",
     )
     if calendar.empty:
+        for failure in client.failures:
+            print(f"交易日历接口返回：{failure}", file=sys.stderr)
         raise SystemExit(f"无法核对 {asof} 的交易日历，本次不发布。")
 
     matched = calendar[calendar["cal_date"].astype(str) == asof]
