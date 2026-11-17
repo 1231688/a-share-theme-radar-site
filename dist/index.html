@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A股题材轮动雷达：每日更新市场主线、情绪阶段、题材内部梯队、周期路径与补涨候选。"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2311161d'/%3E%3Cpath d='M18 46V18h14c9 0 15 5 15 13 0 6-3 10-9 12l9 11H34l-7-9v9H18Zm9-17h6c4 0 6-2 6-5s-2-5-6-5h-6v10Z' fill='white'/%3E%3C/svg%3E"
+    />
+    <title>A股题材轮动雷达</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark">R</span>
+        <span>
+          <strong>轮回雷达</strong>
+          <small>THEME ROTATION</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="页面导航">
+        <a href="#narratives">今日叙事</a>
+        <a href="#themes">持续主线</a>
+        <a href="#timeline">题材周期</a>
+        <a href="#candidates">补涨候选</a>
+        <a href="#universe">全部板块</a>
+      </nav>
+      <button class="refresh-button" id="refresh-button" type="button">
+        <span class="refresh-icon" aria-hidden="true">↻</span>
+        刷新数据
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <div class="eyebrow">DAILY A-SHARE THEME INTELLIGENCE</div>
+          <h1 id="page-title">A股题材轮动雷达</h1>
+          <p>
+            看主线持续性，不只看今天涨幅；看内部梯队，不只看单只龙头。数据每交易日收盘后更新。
+          </p>
+          <div class="hero-meta">
+            <span class="pill" id="asof-pill">数据加载中</span>
+            <span class="pill pill-soft" id="source-pill">数据源加载中</span>
+            <span class="pill pill-soft" id="coverage-pill">板块覆盖加载中</span>
+          </div>
+        </div>
+        <div class="hero-signal" id="market-signal" aria-live="polite">
+          <span class="signal-orbit" aria-hidden="true"></span>
+          <div>
+            <span>当前情绪</span>
+            <strong>加载中</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="market-strip" aria-label="市场情绪数据">
+        <article class="market-stat">
+          <span>涨停 / 跌停</span>
+          <strong id="limit-ratio">—</strong>
+          <small id="limit-context">—</small>
+        </article>
+        <article class="market-stat">
+          <span>炸板率</span>
+          <strong id="break-rate">—</strong>
+          <small id="streak-context">—</small>
+        </article>
+        <article class="market-stat">
+          <span>存活主线</span>
+          <strong id="alive-count">—</strong>
+          <small>通过近5日与资金检验</small>
+        </article>
+        <article class="market-stat">
+          <span>当前节奏</span>
+          <strong id="market-phase">—</strong>
+          <small>情绪与接力质量综合判断</small>
+        </article>
+      </section>
+
+      <section class="section" id="narratives" aria-labelledby="narratives-title">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">01 / MONEY NARRATIVES</div>
+            <h2 id="narratives-title">今天资金在炒什么</h2>
+          </div>
+          <p class="section-note">从涨停簇、新闻催化和名称联想重新归类，而不是只看行业涨幅榜。</p>
+        </div>
+        <div class="narrative-grid" id="narrative-grid">
+          <div class="loading-panel">正在读取今日资金叙事…</div>
+        </div>
+      </section>
+
+      <section class="section" id="themes" aria-labelledby="themes-title">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">02 / PERSISTENT THEMES</div>
+            <h2 id="themes-title">持续性主线与内部梯队</h2>
+          </div>
+          <div class="segmented" role="group" aria-label="题材范围">
+            <button class="segment is-active" type="button" data-scope="all">全部</button>
+            <button class="segment" type="button" data-scope="mainline">当前主线</button>
+            <button class="segment" type="button" data-scope="potential">潜在方向</button>
+          </div>
+        </div>
+        <div class="theme-grid" id="theme-grid">
+          <div class="loading-panel">正在加载题材梯队…</div>
+        </div>
+      </section>
+
+      <section class="section" id="timeline" aria-labelledby="timeline-title">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">03 / CYCLE PATH</div>
+            <h2 id="timeline-title">题材周期路径</h2>
+          </div>
+          <p class="section-note" id="timeline-note">点击上方任意题材切换；数字为逐日涨跌幅。</p>
+        </div>
+        <div class="cycle-overview" aria-live="polite">
+          <div class="cycle-overview-copy">
+            <span class="cycle-stage" id="cycle-stage">周期识别中</span>
+            <p id="cycle-summary">正在汇总板块强度、量能、上涨家数与核心股表现。</p>
+          </div>
+          <div class="cycle-stats" id="cycle-stats"></div>
+        </div>
+        <div class="timeline-shell">
+          <div class="timeline-scroll">
+            <div class="timeline-grid" id="timeline-grid" role="grid" aria-label="题材周期逐日矩阵"></div>
+          </div>
+          <div class="legend" aria-label="矩阵颜色说明">
+            <span><i class="swatch swatch-limit"></i>涨停 / 20cm</span>
+            <span><i class="swatch swatch-strong"></i>涨幅≥5%</span>
+            <span><i class="swatch swatch-flat"></i>普通涨跌</span>
+            <span><i class="swatch swatch-weak"></i>跌幅≥5%</span>
+            <span><i class="swatch swatch-down"></i>跌停</span>
+            <span><i class="swatch swatch-empty"></i>无数据</span>
+          </div>
+        </div>
+        <div class="cycle-rules">
+          <div class="cycle-rule cycle-rule-confirm">
+            <strong>下一交易日 · 转强确认</strong>
+            <p id="cycle-trigger">等待周期数据</p>
+          </div>
+          <div class="cycle-rule cycle-rule-risk">
+            <strong>失效条件 · 先控制风险</strong>
+            <p id="cycle-invalidation">等待周期数据</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="candidates" aria-labelledby="candidates-title">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">04 / NEXT WAVE</div>
+            <h2 id="candidates-title">下一补涨候选</h2>
+          </div>
+          <p class="section-note">按位置、承接、量能与资金是否透支排序。</p>
+        </div>
+        <div class="candidate-grid" id="candidate-grid">
+          <div class="loading-panel">正在计算候选顺序…</div>
+        </div>
+      </section>
+
+      <section class="section" id="universe" aria-labelledby="universe-title">
+        <div class="section-head universe-head">
+          <div>
+            <div class="section-kicker">05 / FULL UNIVERSE</div>
+            <h2 id="universe-title">全市场板块</h2>
+          </div>
+          <div class="table-controls">
+            <label class="search-field">
+              <span class="sr-only">搜索板块</span>
+              <input id="sector-search" type="search" placeholder="搜索板块名称" autocomplete="off" />
+            </label>
+            <label class="select-field">
+              <span class="sr-only">板块类型</span>
+              <select id="sector-kind">
+                <option value="all">全部类型</option>
+                <option value="industry">行业</option>
+                <option value="concept">概念</option>
+              </select>
+            </label>
+            <label class="select-field">
+              <span class="sr-only">排序方式</span>
+              <select id="sector-sort">
+                <option value="ret15">15日涨幅</option>
+                <option value="ret5">5日涨幅</option>
+                <option value="volRatio">量比</option>
+                <option value="rankDays">上榜天数</option>
+                <option value="shareDelta">成交占比变化</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="universe-summary" id="universe-summary"></div>
+        <div class="sector-table-wrap">
+          <table class="sector-table">
+            <thead>
+              <tr>
+                <th>板块</th>
+                <th>类型</th>
+                <th class="num">15日涨幅</th>
+                <th class="num">5日涨幅</th>
+                <th class="num">上榜天数</th>
+                <th class="num">量比</th>
+                <th class="num">成交占比变化</th>
+              </tr>
+            </thead>
+            <tbody id="sector-body"></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span id="sector-count"></span>
+          <button class="load-more" id="load-more" type="button">显示更多</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>轮回雷达</strong>
+        <span>数据驱动，只做复盘观察，不构成投资建议。</span>
+      </div>
+      <div id="footer-source">数据源加载中</div>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
